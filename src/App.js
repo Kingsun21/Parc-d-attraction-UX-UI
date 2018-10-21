@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {
   Collapse,
   Navbar,
@@ -13,7 +14,7 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem, } from 'reactstrap';
 import { Media } from 'reactstrap';
 
 class App extends Component {
@@ -36,7 +37,17 @@ class App extends Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <img src="/starfpark.png" alt="starfpark" />
+          <Media>
+            <Media left href="/">
+              <Media object src="/starfpark.png" alt="logo" />
+            </Media>
+            <Media body>
+              <Media heading>
+                Starf Park
+              </Media>
+              Gestion du parc
+            </Media>
+          </Media>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
