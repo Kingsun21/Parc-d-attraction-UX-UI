@@ -14,8 +14,18 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem, } from 'reactstrap';
+  DropdownItem,
+  TabContent,
+  TabPane,
+  Card,
+  Button,
+  CardTitle,
+  CardText,
+  Row,
+  Col,
+  Container,} from 'reactstrap';
 import { Media } from 'reactstrap';
+import classnames from 'classnames';
 
 class App extends Component {
   constructor(props) {
@@ -23,52 +33,99 @@ class App extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      activeTab: '1'
     };
   }
 
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
   }
 
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
+        <div id="sidebar">
           <Media>
             <Media left href="/">
               <Media object src="/starfpark.png" alt="logo" />
             </Media>
-            <Media body>
-              <Media heading>
-                Starf Park
-              </Media>
-              Gestion du parc
-            </Media>
           </Media>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+        </div>
+          <div id="corps">
+            <Nav tabs id="tabs">
               <NavItem>
-                <NavLink href="/attractions/">Attractions</NavLink>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '1' })}
+                  onClick={() => { this.toggle('1'); }}
+                >
+                  Attractions
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/batiments/">Bâtiment</NavLink>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '2' })}
+                  onClick={() => { this.toggle('2'); }}
+                >
+                  Bâtiments
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/maintenance/">Maintenance</NavLink>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '3' })}
+                  onClick={() => { this.toggle('3'); }}
+                >
+                  Maintenance
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/personnel/">Personnel</NavLink>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '4' })}
+                  onClick={() => { this.toggle('4'); }}
+                >
+                  Personnel
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/stats/">Statistiques</NavLink>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '5' })}
+                  onClick={() => { this.toggle('5'); }}
+                >
+                  Statistiques
+                </NavLink>
               </NavItem>
             </Nav>
-          </Collapse>
-        </Navbar>
+            <TabContent activeTab={this.state.activeTab}>
+            <TabPane tabId="1">
+              <Row>
+                <Col sm="12">
+                  <h4>Tab 1 Contents</h4>
+                </Col>
+              </Row>
+            </TabPane>
+            <TabPane tabId="2">
+              <Row>
+                <Col sm="6">
+                  <Card body>
+                    <CardTitle>Special Title Treatment</CardTitle>
+                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                    <Button>Go somewhere</Button>
+                  </Card>
+                </Col>
+                <Col sm="6">
+                  <Card body>
+                    <CardTitle>Special Title Treatment</CardTitle>
+                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                    <Button>Go somewhere</Button>
+                  </Card>
+                </Col>
+              </Row>
+            </TabPane>
+          </TabContent>
+        </div>
       </div>
     );
   }
