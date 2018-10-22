@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+#oui je vais un test
 
 import {
   Collapse,
@@ -32,6 +32,7 @@ import Batiments from './Components/Batiments.js';
 import Maintenance from './Components/Maintenance.js';
 import Personnel from './Components/Personnel.js';
 import Statistiques from './Components/Statistiques.js';
+#oui je vais un test
 
 class App extends Component {
   constructor(props) {
