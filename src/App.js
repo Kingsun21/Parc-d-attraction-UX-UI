@@ -27,7 +27,7 @@ import {
 import { Media } from 'reactstrap';
 import classnames from 'classnames';
 import Attractions from './Components/Attractions.js';
-import Bâtiments from './Components/Batiments.js';
+import Batiments from './Components/Batiments.js';
 import Maintenance from './Components/Maintenance.js';
 import Personnel from './Components/Personnel.js';
 import Statistiques from './Components/Statistiques.js';
@@ -120,22 +120,7 @@ class App extends Component {
               </Row>
             </TabPane>
             <TabPane tabId="2">
-              <Row>
-                <Col sm="6">
-                  <Card body>
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                    <Button>Go somewhere</Button>
-                  </Card>
-                </Col>
-                <Col sm="6">
-                  <Card body>
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                    <Button>Go somewhere</Button>
-                  </Card>
-                </Col>
-              </Row>
+              <Batiments buttonLabel="Ajouter un bâtiment" classname=""/>
             </TabPane>
           </TabContent>
         </div>
