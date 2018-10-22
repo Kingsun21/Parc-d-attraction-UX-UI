@@ -31,7 +31,6 @@ import Batiments from './Components/Batiments.js';
 import Maintenance from './Components/Maintenance.js';
 import Personnel from './Components/Personnel.js';
 import Statistiques from './Components/Statistiques.js';
-#oui je vais un test
 
 class App extends Component {
   constructor(props) {
