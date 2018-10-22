@@ -26,6 +26,11 @@ import {
   Container,} from 'reactstrap';
 import { Media } from 'reactstrap';
 import classnames from 'classnames';
+import Attractions from './Components/Attractions.js';
+import Bâtiments from './Components/Batiments.js';
+import Maintenance from './Components/Maintenance.js';
+import Personnel from './Components/Personnel.js';
+import Statistiques from './Components/Statistiques.js';
 
 class App extends Component {
   constructor(props) {
