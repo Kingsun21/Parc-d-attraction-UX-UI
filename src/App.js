@@ -54,11 +54,19 @@ class App extends Component {
     return (
       <div>
         <div id="sidebar">
-          <Media>
-            <Media left href="/">
-              <Media object src="/starfpark.png" alt="logo" />
+        <Col>
+          <Row sm="3">
+            <Media>
+              <Media left href="/">
+                <Media object src="/starfpark.png" alt="logo" />
+              </Media>
             </Media>
-          </Media>
+          </Row>
+          <Row sm="3" id="titre">
+            <h1>Starf Park</h1>
+            <h2><br/>Logiciel de gestion</h2>
+          </Row>
+        </Col>
         </div>
           <div id="corps">
             <Nav tabs id="tabs">
