@@ -47,38 +47,68 @@ class App extends Component {
   }
 
   updateInput(key, value) {
-      this.setState({ [key]: value });
-    }
+    this.setState({ [key]: value });
 
-    addItem() {
+    localStorage.setItem(key, value);
+  }
+
+  addItem() {
     const newItem = {
       id: 1 + Math.random(),
       value: this.state.newItem.slice()
     };
 
-    // copy current list of items
-   const list = [...this.state.list];
+    // copie de la liste actuelle
+    const list = [...this.state.list];
 
-   // add the new item to the list
-   list.push(newItem);
+    // ajout du nouvel objet à la liste
+    list.push(newItem);
 
-   // update state with new list, reset the new item input
-   this.setState({
-     list,
-     newItem: ""
-   });
- }
+    // update de l'état avec la nouvvelle liste et reset de newItem
+    this.setState({
+      list,
+      newItem: ""
+    });
 
- deleteItem(id) {
-   // copy current list of items
-   const list = [...this.state.list];
-   // filter out the item being deleted
-   const updatedList = list.filter(item => item.id !== id);
+    // update du cache et convertion en strin JSON pour le cache
+    localStorage.setItem("list", JSON.stringify(list));
+    localStorage.setItem("newItem", "");
+  }
 
-   this.setState({ list: updatedList });
- }
+  deleteItem(id) {
+    // copie de la liste actuelle
+    const list = [...this.state.list];
+    // filtrage de l'id à supprimer
+    const updatedList = list.filter(item => item.id !== id);
 
+    this.setState({ list: updatedList });
 
+    // update du cache
+    localStorage.setItem("list", JSON.stringify(updatedList));
+  }
+
+  hydrateStateWithLocalStorage() {
+    // pour tout le state
+    for (let key in this.state) {
+      // si la clé existe en cache
+      if (localStorage.hasOwnProperty(key)) {
+        // on la récupère
+        let value = localStorage.getItem(key);
+
+        // on reconvertie dans l'autre sens et on sauvegarde dans le state
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          this.setState({ [key]: value });
+        }
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.hydrateStateWithLocalStorage();
+  }
 
   toggle(tab) {
     if (this.state.activeTab !== tab) {
