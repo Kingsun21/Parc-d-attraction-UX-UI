@@ -210,27 +210,41 @@ class App extends Component {
         </div>
 
 
-        <div style={{textAlign: "left", maxWidth: 800, margin: "auto"}}>
+        <div style={{textAlign: "left", maxWidth: "auto", margin: "auto"}}>
           <p>Ajouter un objet</p>
-          <input type="text" placeholder="Nom" value={this.state.newItem1}
-            onChange={e => this.updateInput("newItem1", e.target.value)}/>
-          <input type="text" placeholder="Prénom" value={this.state.newItem2}
-            onChange={e => this.updateInput("newItem2", e.target.value)}/>
-          <input type="text" placeholder="Âge" value={this.state.newItem3}
-            onChange={e => this.updateInput("newItem3", e.target.value)}/>
-          <input type="text" placeholder="Fonction" value={this.state.newItem4}
-            onChange={e => this.updateInput("newItem4", e.target.value)}/>
-          <input type="text" placeholder="Salaire" value={this.state.newItem5}
-            onChange={e => this.updateInput("newItem5", e.target.value)}/>
-          <button onClick={() => this.addItem()}>
-            &#43; Ajouter
-          </button>
+          <div class="form-row">
+            <div class="col">
+              <input type="text" placeholder="Nom" value={this.state.newItem1}
+                onChange={e => this.updateInput("newItem1", e.target.value)}/>
+            </div>
+            <div class="col">
+              <input type="text" placeholder="Prénom" value={this.state.newItem2}
+                onChange={e => this.updateInput("newItem2", e.target.value)}/>
+            </div>
+            <div class="col">
+              <input type="text" placeholder="Âge" value={this.state.newItem3}
+                onChange={e => this.updateInput("newItem3", e.target.value)}/>
+            </div>
+            <div class="col">
+              <input type="text" placeholder="Fonction" value={this.state.newItem4}
+                onChange={e => this.updateInput("newItem4", e.target.value)}/>
+            </div>
+            <div class="col">
+              <input type="text" placeholder="Salaire" value={this.state.newItem5}
+                onChange={e => this.updateInput("newItem5", e.target.value)}/>
+            </div>
+            <div class="col">
+              <button class="btn btn-primary" onClick={() => this.addItem()}>
+                &#43; Ajouter
+              </button>
+            </div>
+          </div>
           <br/>
           <br/>
-          <ul>
+          <ul class="list-group">
             {this.state.list.map(item => {
               return (
-                <li style={{width: "auto"}} key={item.id}>
+                <li class="list-group-item" style={{width: "auto"}} key={item.id}>
                   {item.value1}
                   &#160;
                   {item.value2}
@@ -241,7 +255,7 @@ class App extends Component {
                   &#160;
                   {item.value5}
                   &#160;
-                  <button onClick={() => this.deleteItem(item.id)}>
+                  <button class="btn btn-danger" onClick={() => this.deleteItem(item.id)}>
                     Supprimer
                   </button>
                 </li>
