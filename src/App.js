@@ -60,7 +60,10 @@ class App extends Component {
     const newValue = {
       id: 1 + Math.random(),
       value1: this.state.newItem1.slice(),
-      value2: this.state.newItem2.slice()
+      value2: this.state.newItem2.slice(),
+      value3: this.state.newItem3.slice(),
+      value4: this.state.newItem4.slice(),
+      value5: this.state.newItem5.slice()
     };
 
     // copie de la liste actuelle
@@ -207,22 +210,37 @@ class App extends Component {
         </div>
 
 
-        <div style={{padding: 50, textAlign: "left", maxWidth: 500, margin: "auto"}}>
+        <div style={{textAlign: "left", maxWidth: 800, margin: "auto"}}>
           <p>Ajouter un objet</p>
-          <input type="text" placeholder="Écrire un objet 1" value={this.state.newItem1}
+          <input type="text" placeholder="Nom" value={this.state.newItem1}
             onChange={e => this.updateInput("newItem1", e.target.value)}/>
-            <input type="text" placeholder="Écrire un objet 2" value={this.state.newItem2}
-              onChange={e => this.updateInput("newItem2", e.target.value)}/>
+          <input type="text" placeholder="Prénom" value={this.state.newItem2}
+            onChange={e => this.updateInput("newItem2", e.target.value)}/>
+          <input type="text" placeholder="Âge" value={this.state.newItem3}
+            onChange={e => this.updateInput("newItem3", e.target.value)}/>
+          <input type="text" placeholder="Fonction" value={this.state.newItem4}
+            onChange={e => this.updateInput("newItem4", e.target.value)}/>
+          <input type="text" placeholder="Salaire" value={this.state.newItem5}
+            onChange={e => this.updateInput("newItem5", e.target.value)}/>
           <button onClick={() => this.addItem()}>
             &#43; Ajouter
           </button>
+          <br/>
+          <br/>
           <ul>
             {this.state.list.map(item => {
               return (
-                <li key={item.id}>
+                <li style={{width: "auto"}} key={item.id}>
                   {item.value1}
                   &#160;
                   {item.value2}
+                  &#160;
+                  {item.value3}
+                  &#160;
+                  {item.value4}
+                  &#160;
+                  {item.value5}
+                  &#160;
                   <button onClick={() => this.deleteItem(item.id)}>
                     Supprimer
                   </button>
