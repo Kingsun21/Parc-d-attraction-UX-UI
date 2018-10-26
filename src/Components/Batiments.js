@@ -107,9 +107,13 @@ class Batiments extends Component {
   formulaire() {
     return(
       <div>
+        <br/>
         <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <br/>
+        <br/>
+        <br/>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Ajouter un bâtiment</ModalHeader>
           <ModalBody>
             <Form>
               <FormGroup>
@@ -123,8 +127,8 @@ class Batiments extends Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => this.addItem()}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="primary" onClick={() => this.addItem()}>Ajouter</Button>{' '}
+            <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>
       </div>
@@ -152,6 +156,7 @@ tableau() {
             <th>ID</th>
             <th>Nom</th>
             <th>{"Date d'installation"}</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
