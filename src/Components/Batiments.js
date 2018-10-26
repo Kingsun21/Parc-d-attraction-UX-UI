@@ -9,7 +9,11 @@ class Batiments extends Component {
       modal: false
     };
     this.state = {
-      newItem: "",
+      newItem1: "",
+      newItem2: "",
+      newItem3: "",
+      newItem4: "",
+      newItem5: "",
       list: []
     };
 
@@ -23,26 +27,39 @@ class Batiments extends Component {
   }
 
   addItem() {
-    const newItem = {
+    const newValue = {
       id: 1 + Math.random(),
-      value: this.state.newItem.slice()
+      value1: this.state.newItem1.slice(),
+      value2: this.state.newItem2.slice(),
+      value3: this.state.newItem3.slice(),
+      value4: this.state.newItem4.slice(),
+      value5: this.state.newItem5.slice()
     };
 
     // copie de la liste actuelle
     const list = [...this.state.list];
 
     // ajout du nouvel objet à la liste
-    list.push(newItem);
+    list.push(newValue);
 
     // update de l'état avec la nouvvelle liste et reset de newItem
     this.setState({
       list,
-      newItem: ""
+      newItem1: "",
+      newItem2: "",
+      newItem3: "",
+      newItem4: "",
+      newItem5: ""
     });
 
     // update du cache et convertion en strin JSON pour le cache
     localStorage.setItem("list", JSON.stringify(list));
-    localStorage.setItem("newItem", "");
+    localStorage.setItem("newItem1", "");
+    localStorage.setItem("newItem2", "");
+    localStorage.setItem("newItem3", "");
+    localStorage.setItem("newItem4", "");
+    localStorage.setItem("newItem5", "");
+
     this.toggle();
   }
 
@@ -97,16 +114,16 @@ class Batiments extends Component {
             <Form>
               <FormGroup>
                 <Label for="nomB">Nom du bâtiment</Label>
-                <Input type="text" name="nom" id="nomB" placeholder="Nom du bâtiment" value={this.state.newItem} onChange={e => this.updateInput("newItem", e.target.value)} />
+                <Input type="text" name="nom" id="nomB" placeholder="Nom du bâtiment" value={this.state.newItem1} onChange={e => this.updateInput("newItem1", e.target.value)} />
               </FormGroup>
               <FormGroup>
                 <Label for="date">{"Date d'installation"}</Label>
-                <Input type="date" name="date" id="date" placeholder="Date" />
+                <Input type="date" name="date" id="date" placeholder="Date" value={this.state.newItem2} onChange={e => this.updateInput("newItem2", e.target.value)}/>
               </FormGroup>
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => this.addItem()} disabled={!this.state.newItem.length}>Do Something</Button>{' '}
+            <Button color="primary" onClick={() => this.addItem()}>Do Something</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
@@ -115,8 +132,20 @@ class Batiments extends Component {
   }
 
 tableau() {
-  return(
-    <div>
+    let tableau = this.state.list.map(item => {
+      return (
+        <tr>
+          <th scope="row">1</th>
+          <td>{item.value1}</td>
+          <td>{item.value2}</td>
+          <td><button class="btn btn-danger" onClick={() => this.deleteItem(item.id)}>
+            Supprimer
+          </button></td>
+        </tr>
+      );
+    });
+
+    return (
       <Table striped>
         <thead>
           <tr>
@@ -126,46 +155,10 @@ tableau() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-          </tr>
+          {tableau}
         </tbody>
       </Table>
-      <div style={{padding: 50, textAlign: "left", maxWidth: 500, margin: "auto"}}>
-        <p>Ajouter un objet</p>
-        <input type="text" placeholder="Écrire un objet" value={this.state.newItem}
-          onChange={e => this.updateInput("newItem", e.target.value)}/>
-        <button onClick={() => this.addItem()} disabled={!this.state.newItem.length}>
-          &#43; Ajouter
-        </button>
-        <ul>
-          {this.state.list.map(item => {
-            return (
-              <li key={item.id}>
-                {item.value}
-                <button onClick={() => this.deleteItem(item.id)}>
-                  Supprimer
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
-
-  );
+    );
 }
 
 
