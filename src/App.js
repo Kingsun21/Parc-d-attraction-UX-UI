@@ -41,7 +41,11 @@ class App extends Component {
       activeTab: '1'
     };
     this.state = {
-      newItem: "",
+      newItem1: "",
+      newItem2: "",
+      newItem3: "",
+      newItem4: "",
+      newItem5: "",
       list: []
     };
   }
@@ -53,26 +57,35 @@ class App extends Component {
   }
 
   addItem() {
-    const newItem = {
+    const newValue = {
       id: 1 + Math.random(),
-      value: this.state.newItem.slice()
+      value1: this.state.newItem1.slice(),
+      value2: this.state.newItem2.slice()
     };
 
     // copie de la liste actuelle
     const list = [...this.state.list];
 
     // ajout du nouvel objet à la liste
-    list.push(newItem);
+    list.push(newValue);
 
     // update de l'état avec la nouvvelle liste et reset de newItem
     this.setState({
       list,
-      newItem: ""
+      newItem1: "",
+      newItem2: "",
+      newItem3: "",
+      newItem4: "",
+      newItem5: ""
     });
 
     // update du cache et convertion en strin JSON pour le cache
     localStorage.setItem("list", JSON.stringify(list));
-    localStorage.setItem("newItem", "");
+    localStorage.setItem("newItem1", "");
+    localStorage.setItem("newItem2", "");
+    localStorage.setItem("newItem3", "");
+    localStorage.setItem("newItem4", "");
+    localStorage.setItem("newItem5", "");
   }
 
   deleteItem(id) {
@@ -196,16 +209,20 @@ class App extends Component {
 
         <div style={{padding: 50, textAlign: "left", maxWidth: 500, margin: "auto"}}>
           <p>Ajouter un objet</p>
-          <input type="text" placeholder="Écrire un objet" value={this.state.newItem}
-            onChange={e => this.updateInput("newItem", e.target.value)}/>
-          <button onClick={() => this.addItem()} disabled={!this.state.newItem.length}>
+          <input type="text" placeholder="Écrire un objet 1" value={this.state.newItem1}
+            onChange={e => this.updateInput("newItem1", e.target.value)}/>
+            <input type="text" placeholder="Écrire un objet 2" value={this.state.newItem2}
+              onChange={e => this.updateInput("newItem2", e.target.value)}/>
+          <button onClick={() => this.addItem()}>
             &#43; Ajouter
           </button>
           <ul>
             {this.state.list.map(item => {
               return (
                 <li key={item.id}>
-                  {item.value}
+                  {item.value1}
+                  &#160;
+                  {item.value2}
                   <button onClick={() => this.deleteItem(item.id)}>
                     Supprimer
                   </button>
