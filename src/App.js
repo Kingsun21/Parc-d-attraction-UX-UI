@@ -40,75 +40,9 @@ class App extends Component {
     this.state = {
       activeTab: '1'
     };
-    this.state = {
-      newItem: "",
-      list: []
-    };
   }
 
-  updateInput(key, value) {
-    this.setState({ [key]: value });
 
-    localStorage.setItem(key, value);
-  }
-
-  addItem() {
-    const newItem = {
-      id: 1 + Math.random(),
-      value: this.state.newItem.slice()
-    };
-
-    // copie de la liste actuelle
-    const list = [...this.state.list];
-
-    // ajout du nouvel objet à la liste
-    list.push(newItem);
-
-    // update de l'état avec la nouvvelle liste et reset de newItem
-    this.setState({
-      list,
-      newItem: ""
-    });
-
-    // update du cache et convertion en strin JSON pour le cache
-    localStorage.setItem("list", JSON.stringify(list));
-    localStorage.setItem("newItem", "");
-  }
-
-  deleteItem(id) {
-    // copie de la liste actuelle
-    const list = [...this.state.list];
-    // filtrage de l'id à supprimer
-    const updatedList = list.filter(item => item.id !== id);
-
-    this.setState({ list: updatedList });
-
-    // update du cache
-    localStorage.setItem("list", JSON.stringify(updatedList));
-  }
-
-  hydrateStateWithLocalStorage() {
-    // pour tout le state
-    for (let key in this.state) {
-      // si la clé existe en cache
-      if (localStorage.hasOwnProperty(key)) {
-        // on la récupère
-        let value = localStorage.getItem(key);
-
-        // on reconvertie dans l'autre sens et on sauvegarde dans le state
-        try {
-          value = JSON.parse(value);
-          this.setState({ [key]: value });
-        } catch (e) {
-          this.setState({ [key]: value });
-        }
-      }
-    }
-  }
-
-  componentDidMount() {
-    this.hydrateStateWithLocalStorage();
-  }
 
   toggle(tab) {
     if (this.state.activeTab !== tab) {
@@ -192,32 +126,7 @@ class App extends Component {
             </TabPane>
           </TabContent>
         </div>
-
-
-        <div style={{padding: 50, textAlign: "left", maxWidth: 500, margin: "auto"}}>
-          <p>Ajouter un objet</p>
-          <input type="text" placeholder="Écrire un objet" value={this.state.newItem}
-            onChange={e => this.updateInput("newItem", e.target.value)}/>
-          <button onClick={() => this.addItem()} disabled={!this.state.newItem.length}>
-            &#43; Ajouter
-          </button>
-          <ul>
-            {this.state.list.map(item => {
-              return (
-                <li key={item.id}>
-                  {item.value}
-                  <button onClick={() => this.deleteItem(item.id)}>
-                    Supprimer
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
       </div>
-
-
     );
   }
 }
