@@ -122,6 +122,8 @@ class App extends Component {
             </TabPane>
             <TabPane tabId="3">
               <Maintenance buttonLabel="Ajouter un bâtiment" classname=""/>
+            <TabPane tabId="4">
+              <Personnel buttonLabel="Ajouter un employé" classname=""/>
             </TabPane>
           </TabContent>
         </div>
