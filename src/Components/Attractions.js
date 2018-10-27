@@ -14,7 +14,7 @@ class Attractions extends Component {
       newItem3: "",
       newItem4: "",
       newItem5: "",
-      list: []
+      listA: []
     };
 
     this.toggle = this.toggle.bind(this);
@@ -37,14 +37,14 @@ class Attractions extends Component {
     };
 
     // copie de la liste actuelle
-    const list = [...this.state.list];
+    const listA = [...this.state.listA];
 
     // ajout du nouvel objet à la liste
-    list.push(newValue);
+    listA.push(newValue);
 
     // update de l'état avec la nouvvelle liste et reset de newItem
     this.setState({
-      list,
+      listA,
       newItem1: "",
       newItem2: "",
       newItem3: "",
@@ -53,7 +53,7 @@ class Attractions extends Component {
     });
 
     // update du cache et convertion en strin JSON pour le cache
-    localStorage.setItem("list", JSON.stringify(list));
+    localStorage.setItem("listA", JSON.stringify(listA));
     localStorage.setItem("newItem1", "");
     localStorage.setItem("newItem2", "");
     localStorage.setItem("newItem3", "");
@@ -65,14 +65,14 @@ class Attractions extends Component {
 
   deleteItem(id) {
     // copie de la liste actuelle
-    const list = [...this.state.list];
+    const listA = [...this.state.listA];
     // filtrage de l'id à supprimer
-    const updatedList = list.filter(item => item.id !== id);
+    const updatedList = listA.filter(item => item.id !== id);
 
-    this.setState({ list: updatedList });
+    this.setState({ listA: updatedList });
 
     // update du cache
-    localStorage.setItem("list", JSON.stringify(updatedList));
+    localStorage.setItem("listA", JSON.stringify(updatedList));
   }
 
   hydrateStateWithLocalStorage() {
@@ -108,7 +108,7 @@ class Attractions extends Component {
     return(
       <div>
         <br/>
-        <Button color="primary" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <Button color="success" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <br/>
         <br/>
         <br/>
@@ -117,15 +117,15 @@ class Attractions extends Component {
           <ModalBody>
             <Form>
               <FormGroup>
-                <Label for="nomB">Nom de l'attraction</Label>
+                <Label for="nomB">{"Nom de l'attraction"}</Label>
                 <Input type="text" name="nom" id="nomB" placeholder="Nom de l'attraction" value={this.state.newItem1} onChange={e => this.updateInput("newItem1", e.target.value)} />
               </FormGroup>
               <FormGroup>
-                <Label for="date">Date d'installation</Label>
+                <Label for="date">{"Date d'installation"}</Label>
                 <Input type="date" name="date" id="date" placeholder="Date" value={this.state.newItem2} onChange={e => this.updateInput("newItem2", e.target.value)}/>
               </FormGroup>
               <FormGroup>
-                <Label for="prix">Prix de l'entrée (€)</Label>
+                <Label for="prix">{"Prix de l'entrée (€)"}</Label>
                 <Input type="number" name="prix" id="prix" placeholder="Prix d'entrée" value={this.state.newItem3} onChange={e => this.updateInput("newItem3", e.target.value)}/>
               </FormGroup>
             </Form>
@@ -140,13 +140,13 @@ class Attractions extends Component {
   }
 
 tableau() {
-    let tableau = this.state.list.map(item => {
+    let tableau = this.state.listA.map(item => {
       return (
         <tr>
           <td scope="row">{item.value1}</td>
           <td>{item.value2}</td>
           <td>{item.value3}€</td>
-          <td><Button color="primary" onClick={() => this.deleteItem(item.id)}>
+          <td><Button color="danger" onClick={() => this.deleteItem(item.id)}>
             Supprimer
           </Button></td>
         </tr>
@@ -157,9 +157,9 @@ tableau() {
       <Table striped>
         <thead>
           <tr>
-            <th>Nom de l'attraction</th>
-            <th>Date d'installation</th>
-            <th>Prix de l'entrée</th>
+            <th>{"Nom de l'attraction"}</th>
+            <th>{"Date d'installation"}</th>
+            <th>{"Prix de l'entrée"}</th>
             <th></th>
           </tr>
         </thead>
