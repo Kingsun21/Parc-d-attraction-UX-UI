@@ -114,18 +114,19 @@ class App extends Component {
               </NavItem>
             </Nav>
             <TabContent activeTab={this.state.activeTab}>
-            <TabPane tabId="1">
-              <Attractions buttonLabel="Ajouter une attraction" classname=""/>
-            </TabPane>
-            <TabPane tabId="2">
-              <Batiments buttonLabel="Ajouter un bâtiment" classname=""/>
-            </TabPane>
-            <TabPane tabId="3">
-              <Maintenance buttonLabel="Ajouter un bâtiment" classname=""/>
-            <TabPane tabId="4">
-              <Personnel buttonLabel="Ajouter un employé" classname=""/>
-            </TabPane>
-          </TabContent>
+              <TabPane tabId="1">
+                <Attractions buttonLabel="Ajouter une attraction" classname=""/>
+              </TabPane>
+              <TabPane tabId="2">
+                <Batiments buttonLabel="Ajouter un bâtiment" classname=""/>
+              </TabPane>
+              <TabPane tabId="3">
+                <Maintenance buttonLabel="Ajouter un bâtiment" classname=""/>
+              </TabPane>
+              <TabPane tabId="4">
+                <Personnel buttonLabel="Ajouter un employé" classname=""/>
+              </TabPane>
+            </TabContent>
         </div>
       </div>
     );

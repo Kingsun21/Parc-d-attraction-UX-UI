@@ -171,19 +171,13 @@ tableau() {
 }
 
 truc() {
-  let tableau2 = this.state.list[list.length-1].map(item => {
-    return (
-        <td scope="row">{item.value1}</td>
-        <td>{item.value2}</td>
-        <td>{item.value3}€</td>
+  const list = [...this.state.list];
 
-    );
-  });
   return (
       <div>
         <Jumbotron fluid>
           <Container fluid>
-            <h1 className="display-3">{tableau2}</h1>
+            <h1 className="display-3">{`${list[list.length-1].id}`}</h1>
             <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
           </Container>
         </Jumbotron>
