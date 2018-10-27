@@ -115,11 +115,7 @@ class App extends Component {
             </Nav>
             <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
-              <Row>
-                <Col sm="12">
-                  <h4>Tab 1 Contents</h4>
-                </Col>
-              </Row>
+              <Attractions buttonLabel="Ajouter une attraction" classname=""/>
             </TabPane>
             <TabPane tabId="2">
               <Batiments buttonLabel="Ajouter un bâtiment" classname=""/>

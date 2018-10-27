@@ -139,8 +139,7 @@ tableau() {
     let tableau = this.state.list.map(item => {
       return (
         <tr>
-          <th scope="row">1</th>
-          <td>{item.value1}</td>
+          <td scope="row">{item.value1}</td>
           <td>{item.value2}</td>
           <td><button class="btn btn-danger" onClick={() => this.deleteItem(item.id)}>
             Supprimer
@@ -153,8 +152,7 @@ tableau() {
       <Table striped>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nom</th>
+            <th>Nom du bâtiment</th>
             <th>{"Date d'installation"}</th>
             <th></th>
           </tr>
