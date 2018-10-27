@@ -14,7 +14,7 @@ class Batiments extends Component {
       newItem3: "",
       newItem4: "",
       newItem5: "",
-      list: []
+      listB: []
     };
 
     this.toggle = this.toggle.bind(this);
@@ -37,14 +37,14 @@ class Batiments extends Component {
     };
 
     // copie de la liste actuelle
-    const list = [...this.state.list];
+    const listB = [...this.state.listB];
 
     // ajout du nouvel objet à la liste
-    list.push(newValue);
+    listB.push(newValue);
 
     // update de l'état avec la nouvvelle liste et reset de newItem
     this.setState({
-      list,
+      listB,
       newItem1: "",
       newItem2: "",
       newItem3: "",
@@ -53,7 +53,7 @@ class Batiments extends Component {
     });
 
     // update du cache et convertion en strin JSON pour le cache
-    localStorage.setItem("list", JSON.stringify(list));
+    localStorage.setItem("listB", JSON.stringify(listB));
     localStorage.setItem("newItem1", "");
     localStorage.setItem("newItem2", "");
     localStorage.setItem("newItem3", "");
@@ -65,14 +65,14 @@ class Batiments extends Component {
 
   deleteItem(id) {
     // copie de la liste actuelle
-    const list = [...this.state.list];
+    const listB = [...this.state.listB];
     // filtrage de l'id à supprimer
-    const updatedList = list.filter(item => item.id !== id);
+    const updatedList = listB.filter(item => item.id !== id);
 
-    this.setState({ list: updatedList });
+    this.setState({ listB: updatedList });
 
     // update du cache
-    localStorage.setItem("list", JSON.stringify(updatedList));
+    localStorage.setItem("listB", JSON.stringify(updatedList));
   }
 
   hydrateStateWithLocalStorage() {
@@ -108,7 +108,7 @@ class Batiments extends Component {
     return(
       <div>
         <br/>
-        <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <Button color="success" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <br/>
         <br/>
         <br/>
@@ -136,7 +136,7 @@ class Batiments extends Component {
   }
 
 tableau() {
-    let tableau = this.state.list.map(item => {
+    let tableau = this.state.listB.map(item => {
       return (
         <tr>
           <td scope="row">{item.value1}</td>

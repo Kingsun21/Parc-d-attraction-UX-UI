@@ -117,7 +117,7 @@ class Personnel extends Component {
           <ModalBody>
             <Form>
               <FormGroup>
-                <Label for="nomP">Nom de l'employé</Label>
+                <Label for="nomP">{"Nom de l'employé"}</Label>
                 <Input type="text" name="nom" id="nomB" placeholder="Nom" value={this.state.newItem1} onChange={e => this.updateInput("newItem1", e.target.value)} />
               </FormGroup>
               <FormGroup>
@@ -167,11 +167,11 @@ tableau() {
       <Table striped>
         <thead>
           <tr>
-            <th>Nom de l'employé</th>
-            <th>Prénom de l'employé</th>
-            <th>Âge de l'employé</th>
-            <th>Fonction de l'employé</th>
-            <th>Salaire de l'employé</th>
+            <th>{"Nom de l'employé"}</th>
+            <th>{"Prénom de l'employé"}</th>
+            <th>{"Âge de l'employé"}</th>
+            <th>{"Fonction de l'employé"}</th>
+            <th>{"Salaire de l'employé"}</th>
             <th></th>
           </tr>
         </thead>

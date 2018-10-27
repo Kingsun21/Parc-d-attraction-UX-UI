@@ -18,6 +18,7 @@ class Maintenance extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.truc = this.truc.bind(this);
   }
 
   updateInput(key, value) {
@@ -171,18 +172,24 @@ tableau() {
 }
 
 truc() {
-  const list = [...this.state.list];
+  let list = localStorage.getItem("listA");
+    try {
+      list = JSON.parse(list);
+    } catch (e) {
+    }
+  if(list != null){
+    return (
+        <div>
+          <Jumbotron fluid>
+            <Container fluid>
+              <h1 className="display-3">{list[list.length-1].value1}</h1>
+              <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            </Container>
+          </Jumbotron>
+        </div>
+    );
+  }
 
-  return (
-      <div>
-        <Jumbotron fluid>
-          <Container fluid>
-            <h1 className="display-3">{`${list[list.length-1].id}`}</h1>
-            <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-          </Container>
-        </Jumbotron>
-      </div>
-  );
 }
 
 
