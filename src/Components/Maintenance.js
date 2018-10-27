@@ -14,7 +14,7 @@ class Maintenance extends Component {
       newItem3: "",
       newItem4: "",
       newItem5: "",
-      list: []
+      listM: []
     };
 
     this.toggle = this.toggle.bind(this);
@@ -38,14 +38,14 @@ class Maintenance extends Component {
     };
 
     // copie de la liste actuelle
-    const list = [...this.state.list];
+    const listM = [...this.state.listM];
 
     // ajout du nouvel objet à la liste
-    list.push(newValue);
+    listM.push(newValue);
 
     // update de l'état avec la nouvvelle liste et reset de newItem
     this.setState({
-      list,
+      listM,
       newItem1: "",
       newItem2: "",
       newItem3: "",
@@ -54,7 +54,7 @@ class Maintenance extends Component {
     });
 
     // update du cache et convertion en strin JSON pour le cache
-    localStorage.setItem("list", JSON.stringify(list));
+    localStorage.setItem("listM", JSON.stringify(listM));
     localStorage.setItem("newItem1", "");
     localStorage.setItem("newItem2", "");
     localStorage.setItem("newItem3", "");
@@ -66,14 +66,14 @@ class Maintenance extends Component {
 
   deleteItem(id) {
     // copie de la liste actuelle
-    const list = [...this.state.list];
+    const listM = [...this.state.listM];
     // filtrage de l'id à supprimer
-    const updatedList = list.filter(item => item.id !== id);
+    const updatedList = listM.filter(item => item.id !== id);
 
-    this.setState({ list: updatedList });
+    this.setState({ listM: updatedList });
 
     // update du cache
-    localStorage.setItem("list", JSON.stringify(updatedList));
+    localStorage.setItem("listM", JSON.stringify(updatedList));
   }
 
   hydrateStateWithLocalStorage() {
@@ -109,7 +109,7 @@ class Maintenance extends Component {
     return(
       <div>
         <br/>
-        <Button color="primary" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <Button color="success" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <br/>
         <br/>
         <br/>
@@ -141,7 +141,7 @@ class Maintenance extends Component {
   }
 
 tableau() {
-    let tableau = this.state.list.map(item => {
+    let tableau = this.state.listM.map(item => {
       return (
         <tr>
           <td scope="row">{item.value1}</td>
@@ -172,7 +172,7 @@ tableau() {
 }
 
 truc() {
-  let list = localStorage.getItem("listA");
+  let list = localStorage.getItem("listM");
     try {
       list = JSON.parse(list);
     } catch (e) {

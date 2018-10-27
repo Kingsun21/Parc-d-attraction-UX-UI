@@ -121,10 +121,13 @@ class App extends Component {
                 <Batiments buttonLabel="Ajouter un bâtiment" classname=""/>
               </TabPane>
               <TabPane tabId="3">
-                <Maintenance buttonLabel="Ajouter un bâtiment" classname=""/>
+                <Maintenance buttonLabel="Ajouter une maintenance" classname=""/>
               </TabPane>
               <TabPane tabId="4">
                 <Personnel buttonLabel="Ajouter un employé" classname=""/>
+              </TabPane>
+              <TabPane tabId="5">
+                <Statistiques buttonLabel="Ajouter des statistiques" classname=""/>
               </TabPane>
             </TabContent>
         </div>
