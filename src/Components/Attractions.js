@@ -247,7 +247,6 @@ tableau() {
     );
 }
 
-
   render() {
     return(
       <div>
@@ -263,15 +262,6 @@ tableau() {
             </ModalFooter>
           </Modal>
         </div>
-        {this.tableau()}
-      </div>
-    );
-  };
-
-  render() {
-    return(
-      <div>
-        {this.formulaire()}
         <div>
       <Modal isOpen={this.state.modal2} toggle={this.toggle2}>
         <ModalHeader toggle={this.toggle2}>Modifier une attraction</ModalHeader>
