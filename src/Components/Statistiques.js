@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, Table } from 'reactstrap';
-
+import { Line } from "react-chartjs";
 class Statistiques extends Component {
 
   constructor(props) {
@@ -172,9 +172,20 @@ tableau() {
 
 
   render() {
+    let lineOrBarData = {
+      labels: ["January", "February", "March", "April", "May", "June"],
+      datasets: [
+        {
+          data: [0, 10, 23, 45, 9, 18]
+        }
+      ]
+    };
     return(
       <div>
         {this.formulaire()}
+        <div className="App">
+          <Line data={lineOrBarData} />
+        </div>
         {this.tableau()}
       </div>
     );
