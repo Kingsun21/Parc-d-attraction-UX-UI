@@ -165,7 +165,7 @@ tableau() {
           <td scope="row">{moment(item.value1).locale("fr", localization).format("ll")}</td>
           <td>{item.value2}</td>
           <td>{item.value3}</td>
-          <td><Button color="primary" onClick={() => this.suppr(item.id)}>
+          <td><Button color="danger" onClick={() => this.suppr(item.id)}>
             Supprimer
           </Button></td>
         </tr>
