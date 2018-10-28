@@ -50,3 +50,7 @@ img {
   width: 900px !important;
   height: 450px !important;
 }
+
+#importerImage1{
+  overflow: hidden;
+}
