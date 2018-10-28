@@ -8,7 +8,9 @@ class Batiments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      modalSuppr : false,
+      id: ""
     };
     this.state = {
       newItem1: "",
@@ -75,6 +77,7 @@ class Batiments extends Component {
 
     // update du cache
     localStorage.setItem("listB", JSON.stringify(updatedList));
+    this.toggleSuppr();
   }
 
   hydrateStateWithLocalStorage() {
@@ -103,6 +106,12 @@ class Batiments extends Component {
   toggle() {
     this.setState({
       modal: !this.state.modal
+    });
+  }
+
+  toggleSuppr() {
+    this.setState({
+      modalSuppr: !this.state.modalSuppr
     });
   }
 
@@ -137,13 +146,20 @@ class Batiments extends Component {
     );
   }
 
+suppr(id){
+    this.toggleSuppr();
+    this.setState({
+      id: id
+    });
+}
+
 tableau() {
     let tableau = this.state.listB.map(item => {
       return (
         <tr>
           <td scope="row">{item.value1}</td>
           <td>{moment(item.value2).locale("fr", localization).format("ll")}</td>
-          <td><button class="btn btn-danger" onClick={() => this.deleteItem(item.id)}>
+          <td><button class="btn btn-danger" onClick={() => this.suppr(item.id)}>
             Supprimer
           </button></td>
         </tr>
@@ -171,6 +187,17 @@ tableau() {
     return(
       <div>
         {this.formulaire()}
+        <div>
+          <Modal isOpen={this.state.modalSuppr} toggle={this.toggleSuppr} className={this.props.className}>
+            <ModalBody>
+              <p>Voulez-vous supprimer cet élément ?</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" onClick={() => this.deleteItem(this.state.id)}>Supprimer</Button>{' '}
+              <Button color="secondary" onClick={this.toggleSuppr}>Annuler</Button>
+            </ModalFooter>
+          </Modal>
+        </div>
         {this.tableau()}
       </div>
     );

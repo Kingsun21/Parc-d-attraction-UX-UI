@@ -8,7 +8,9 @@ class Maintenance extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      modalSuppr : false,
+      id: ""
     };
     this.state = {
       newItem1: "",
@@ -20,6 +22,7 @@ class Maintenance extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggleSuppr = this.toggleSuppr.bind(this);
   }
 
   updateInput(key, value) {
@@ -75,6 +78,7 @@ class Maintenance extends Component {
 
     // update du cache
     localStorage.setItem("listM", JSON.stringify(updatedList));
+    this.toggleSuppr();
   }
 
   hydrateStateWithLocalStorage() {
@@ -103,6 +107,12 @@ class Maintenance extends Component {
   toggle() {
     this.setState({
       modal: !this.state.modal
+    });
+  }
+
+  toggleSuppr() {
+    this.setState({
+      modalSuppr: !this.state.modalSuppr
     });
   }
 
@@ -141,6 +151,13 @@ class Maintenance extends Component {
     );
   }
 
+  suppr(id){
+    this.toggleSuppr();
+    this.setState({
+      id: id
+    });
+  }
+
 tableau() {
     let tableau = this.state.listM.map(item => {
       return (
@@ -148,7 +165,7 @@ tableau() {
           <td scope="row">{moment(item.value1).locale("fr", localization).format("ll")}</td>
           <td>{item.value2}</td>
           <td>{item.value3}</td>
-          <td><Button color="primary" onClick={() => this.deleteItem(item.id)}>
+          <td><Button color="primary" onClick={() => this.suppr(item.id)}>
             Supprimer
           </Button></td>
         </tr>
@@ -242,6 +259,17 @@ jumbotron(){
     return(
       <div>
         {this.formulaire()}
+        <div>
+          <Modal isOpen={this.state.modalSuppr} toggle={this.toggleSuppr} className={this.props.className}>
+            <ModalBody>
+              <p>Voulez-vous supprimer cet élément ?</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" onClick={() => this.deleteItem(this.state.id)}>Supprimer</Button>{' '}
+              <Button color="secondary" onClick={this.toggleSuppr}>Annuler</Button>
+            </ModalFooter>
+          </Modal>
+        </div>
         {this.jumbotron()}
         <br/>
         <h2>Historique des maintenances :</h2>

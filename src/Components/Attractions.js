@@ -8,7 +8,9 @@ class Attractions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      modalSuppr : false,
+      id: ""
     };
     this.state = {
       newItem1: "",
@@ -75,6 +77,7 @@ class Attractions extends Component {
 
     // update du cache
     localStorage.setItem("listA", JSON.stringify(updatedList));
+    this.toggleSuppr();
   }
 
   hydrateStateWithLocalStorage() {
@@ -103,6 +106,12 @@ class Attractions extends Component {
   toggle() {
     this.setState({
       modal: !this.state.modal
+    });
+  }
+
+  toggleSuppr() {
+    this.setState({
+      modalSuppr: !this.state.modalSuppr
     });
   }
 
@@ -141,6 +150,13 @@ class Attractions extends Component {
     );
   }
 
+suppr(id){
+    this.toggleSuppr();
+    this.setState({
+      id: id
+    });
+}
+
 tableau() {
     let tableau = this.state.listA.map(item => {
       return (
@@ -148,7 +164,7 @@ tableau() {
           <td scope="row">{item.value1}</td>
           <td>{moment(item.value2).locale("fr", localization).format("ll")}</td>
           <td>{item.value3}€</td>
-          <td><Button color="danger" onClick={() => this.deleteItem(item.id)}>
+          <td><Button color="danger" onClick={() => this.suppr(item.id)}>
             Supprimer
           </Button></td>
         </tr>
@@ -177,6 +193,17 @@ tableau() {
     return(
       <div>
         {this.formulaire()}
+        <div>
+          <Modal isOpen={this.state.modalSuppr} toggle={this.toggleSuppr} className={this.props.className}>
+            <ModalBody>
+              <p>Voulez-vous supprimer cet élément ?</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" onClick={() => this.deleteItem(this.state.id)}>Supprimer</Button>{' '}
+              <Button color="secondary" onClick={this.toggleSuppr}>Annuler</Button>
+            </ModalFooter>
+          </Modal>
+        </div>
         {this.tableau()}
       </div>
     );
