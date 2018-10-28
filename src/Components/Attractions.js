@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, Table } from 'reactstrap';
-import moment from 'moment';
-import localization from "moment/locale/fr";
 
 class Attractions extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
-      modalSuppr : false,
-      id: ""
+      modal: false
     };
     this.state = {
       newItem1: "",
@@ -22,7 +18,6 @@ class Attractions extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
-    this.toggleSuppr = this.toggleSuppr.bind(this);
   }
 
   updateInput(key, value) {
@@ -78,7 +73,6 @@ class Attractions extends Component {
 
     // update du cache
     localStorage.setItem("listA", JSON.stringify(updatedList));
-    this.toggleSuppr();
   }
 
   hydrateStateWithLocalStorage() {
@@ -110,13 +104,21 @@ class Attractions extends Component {
     });
   }
 
-  toggleSuppr() {
-    this.setState({
-      modalSuppr: !this.state.modalSuppr
-    });
-  }
-
   formulaire() {
+
+    let tableau = this.state.listA.map(item => {
+      return (
+        <tr>
+          <td scope="row">{listA[].value1}</td>
+          <td>{item.value2}</td>
+          <td>{item.value3}€</td>
+          <td><Button color="danger" onClick={() => this.deleteItem(item.id)}>
+            Supprimer
+          </Button></td>
+        </tr>
+      );
+    });
+
     return(
       <div>
         <br/>
@@ -124,7 +126,7 @@ class Attractions extends Component {
         <br/>
         <br/>
         <br/>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Ajouter une attraction</ModalHeader>
           <ModalBody>
             <Form>
@@ -151,21 +153,14 @@ class Attractions extends Component {
     );
   }
 
-suppr(id){
-    this.toggleSuppr();
-    this.setState({
-      id: id
-    });
-}
-
 tableau() {
     let tableau = this.state.listA.map(item => {
       return (
         <tr>
           <td scope="row">{item.value1}</td>
-          <td>{moment(item.value2).locale("fr", localization).format("ll")}</td>
+          <td>{item.value2}</td>
           <td>{item.value3}€</td>
-          <td><Button color="danger" onClick={() => this.suppr(item.id)}>
+          <td><Button color="danger" onClick={() => this.deleteItem(item.id)}>
             Supprimer
           </Button></td>
         </tr>
@@ -194,17 +189,6 @@ tableau() {
     return(
       <div>
         {this.formulaire()}
-        <div>
-          <Modal isOpen={this.state.modalSuppr} toggle={this.toggleSuppr}>
-            <ModalBody>
-              <p>Voulez-vous supprimer cet élément ?</p>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="danger" onClick={() => this.deleteItem(this.state.id)}>Supprimer</Button>{' '}
-              <Button color="secondary" onClick={this.toggleSuppr}>Annuler</Button>
-            </ModalFooter>
-          </Modal>
-        </div>
         {this.tableau()}
       </div>
     );
