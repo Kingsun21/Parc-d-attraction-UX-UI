@@ -185,6 +185,19 @@ dernierDate() {
   }
 }
 
+avantDernierDate() {
+  let list = localStorage.getItem("listM");
+    try {
+      list = JSON.parse(list);
+    } catch (e) {
+    }
+  try{
+    return(<div id="oui">{moment(list[list.length-2].value1).format("ll")}</div>);
+  } catch(e){
+
+  }
+}
+
 dernierTech() {
   let list = localStorage.getItem("listM");
     try {
@@ -217,7 +230,7 @@ jumbotron(){
         <Jumbotron fluid>
           <Container fluid>
             <h1 className="display-6">Date de la prochaine maintenance : {this.dernierDate()}</h1>
-            <p className="lead">Bâtiment maintenu : {this.dernierBat()}Technicien associé : {this.dernierTech()}</p>
+            <p className="lead">Bâtiment maintenu : {this.dernierBat()}Technicien associé : {this.dernierTech()}Dernière maintenance : {this.avantDernierDate()}</p>
           </Container>
         </Jumbotron>
       </div>
