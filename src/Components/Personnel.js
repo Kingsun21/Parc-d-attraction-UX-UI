@@ -16,7 +16,6 @@ class Personnel extends Component {
       newItem3: "",
       newItem4: "",
       newItem5: "",
-      newItem6: "",
       listP: []
     };
 
@@ -37,8 +36,7 @@ class Personnel extends Component {
       value2: this.state.newItem2.slice(),
       value3: this.state.newItem3.slice(),
       value4: this.state.newItem4.slice(),
-      value5: this.state.newItem5.slice(),
-      value5: this.state.newItem6.slice()
+      value5: this.state.newItem5.slice()
     };
 
     // copie de la liste actuelle
@@ -54,8 +52,7 @@ class Personnel extends Component {
       newItem2: "",
       newItem3: "",
       newItem4: "",
-      newItem5: "",
-      newItem6: ""
+      newItem5: ""
     });
 
     // update du cache et convertion en strin JSON pour le cache
@@ -65,7 +62,6 @@ class Personnel extends Component {
     localStorage.setItem("newItem3", "");
     localStorage.setItem("newItem4", "");
     localStorage.setItem("newItem5", "");
-    localStorage.setItem("newItem6", "");
 
     this.toggle();
   }
