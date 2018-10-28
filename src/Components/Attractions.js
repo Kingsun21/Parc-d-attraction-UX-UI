@@ -190,7 +190,7 @@ class Attractions extends Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => this.addItem()}>Ajouter</Button>{' '}
+            <Button color="success" onClick={() => this.addItem()}>Ajouter</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>

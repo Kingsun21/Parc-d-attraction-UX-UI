@@ -9,7 +9,9 @@ class Batiments extends Component {
     super(props);
     this.state = {
       modal: false,
+      modal2: false,
       modalSuppr : false,
+      idupdate: "",
       id: ""
     };
     this.state = {
@@ -22,6 +24,7 @@ class Batiments extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggle2 = this.toggle2.bind(this);
     this.toggleSuppr = this.toggleSuppr.bind(this);
   }
 
@@ -66,6 +69,44 @@ class Batiments extends Component {
     localStorage.setItem("newItem5", "");
 
     this.toggle();
+  }
+
+  updateItem() {
+    var buffer = 0;
+    const newValue = {
+      id: this.state.idupdate,
+      value1: this.state.newItem1.slice(),
+      value2: this.state.newItem2.slice(),
+      value3: this.state.newItem3.slice(),
+      value4: this.state.newItem4.slice(),
+      value5: this.state.newItem5.slice()
+    };
+    const listB = [...this.state.listB];
+
+    for (var i=0; i < listB.length; i++) {
+      if (listB[i].id == this.state.idupdate)
+      {
+        buffer = i;
+      }
+    }
+    listB[buffer] = newValue;
+
+    this.setState({
+      listB,
+      newItem1: "",
+      newItem2: "",
+      newItem3: "",
+      newItem4: "",
+      newItem5: ""
+    });
+    localStorage.setItem("listB", JSON.stringify(listB));
+    localStorage.setItem("newItem1", "");
+    localStorage.setItem("newItem2", "");
+    localStorage.setItem("newItem3", "");
+    localStorage.setItem("newItem4", "");
+    localStorage.setItem("newItem5", "");
+
+    this.toggle2();
   }
 
   deleteItem(id) {
@@ -116,6 +157,12 @@ class Batiments extends Component {
     });
   }
 
+  toggle2() {
+    this.setState({
+      modal2: !this.state.modal2
+    });
+  }
+
   formulaire() {
     return(
       <div>
@@ -139,7 +186,7 @@ class Batiments extends Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={() => this.addItem()}>Ajouter</Button>{' '}
+            <Button color="success" onClick={() => this.addItem()}>Ajouter</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Annuler</Button>
           </ModalFooter>
         </Modal>
@@ -154,12 +201,22 @@ suppr(id){
     });
 }
 
+modif(id){
+    this.toggle2();
+    this.setState({
+      idupdate: id
+    });
+}
+
 tableau() {
     let tableau = this.state.listB.map(item => {
       return (
         <tr>
           <td scope="row">{item.value1}</td>
           <td>{moment(item.value2).locale("fr", localization).format("ll")}</td>
+          <td><Button color="primary" onClick={() => this.modif(item.id)}>
+            Modifier
+          </Button></td>
           <td><button class="btn btn-danger" onClick={() => this.suppr(item.id)}>
             Supprimer
           </button></td>
@@ -203,6 +260,38 @@ tableau() {
       </div>
     );
   }
+
+
+  render() {
+    return(
+      <div>
+        {this.formulaire()}
+        <div>
+      <Modal isOpen={this.state.modal2} toggle={this.toggle2}>
+        <ModalHeader toggle={this.toggle2}>Modifier un bâtiment</ModalHeader>
+        <ModalBody>
+        <Form>
+          <FormGroup>
+            <Label for="nomB">Nom du bâtiment</Label>
+            <Input type="text" name="nom" id="nomB" placeholder="Nom du bâtiment" value={this.state.newItem1} onChange={e => this.updateInput("newItem1", e.target.value)} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="date">{"Date d'installation"}</Label>
+            <Input type="date" name="date" id="date" placeholder="Date" value={this.state.newItem2} onChange={e => this.updateInput("newItem2", e.target.value)}/>
+          </FormGroup>
+        </Form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => this.updateItem()}>Modifier</Button>{' '}
+          <Button color="secondary" onClick={this.toggle2}>Annuler</Button>
+        </ModalFooter>
+      </Modal>
+        {this.tableau()}
+        </div>
+      </div>
+    );
+  }
+
 
 }
 

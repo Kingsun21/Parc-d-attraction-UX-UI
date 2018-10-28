@@ -7,7 +7,9 @@ class Personnel extends Component {
     super(props);
     this.state = {
       modal: false,
+      modal2: false,
       modalSuppr : false,
+      idupdate: "",
       id: ""
     };
     this.state = {
@@ -20,6 +22,7 @@ class Personnel extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggle2 = this.toggle2.bind(this);
     this.toggleSuppr = this.toggleSuppr.bind(this);
   }
 
@@ -64,6 +67,44 @@ class Personnel extends Component {
     localStorage.setItem("newItem5", "");
 
     this.toggle();
+  }
+
+  updateItem() {
+    var buffer = 0;
+    const newValue = {
+      id: this.state.idupdate,
+      value1: this.state.newItem1.slice(),
+      value2: this.state.newItem2.slice(),
+      value3: this.state.newItem3.slice(),
+      value4: this.state.newItem4.slice(),
+      value5: this.state.newItem5.slice()
+    };
+    const listP = [...this.state.listP];
+
+    for (var i=0; i < listP.length; i++) {
+      if (listP[i].id == this.state.idupdate)
+      {
+        buffer = i;
+      }
+    }
+    listP[buffer] = newValue;
+
+    this.setState({
+      listP,
+      newItem1: "",
+      newItem2: "",
+      newItem3: "",
+      newItem4: "",
+      newItem5: ""
+    });
+    localStorage.setItem("listP", JSON.stringify(listP));
+    localStorage.setItem("newItem1", "");
+    localStorage.setItem("newItem2", "");
+    localStorage.setItem("newItem3", "");
+    localStorage.setItem("newItem4", "");
+    localStorage.setItem("newItem5", "");
+
+    this.toggle2();
   }
 
   deleteItem(id) {
@@ -111,6 +152,12 @@ class Personnel extends Component {
   toggleSuppr() {
     this.setState({
       modalSuppr: !this.state.modalSuppr
+    });
+  }
+
+  toggle2() {
+    this.setState({
+      modal2: !this.state.modal2
     });
   }
 
@@ -164,6 +211,13 @@ class Personnel extends Component {
     });
   }
 
+  modif(id){
+      this.toggle2();
+      this.setState({
+        idupdate: id
+      });
+  }
+
   tableau() {
     let tableau = this.state.listP.map(item => {
       return (
@@ -176,6 +230,11 @@ class Personnel extends Component {
                 <label for="importerImage">Importer une image</label>
                 <input type="file" class="form-control-file" id="importerImage1" />
                 <br/>
+
+                <button class="btn btn-primary" onClick={() => this.modif(item.id)}>
+                  Modifier
+                </button>
+                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
                 <button class="btn btn-danger" onClick={() => this.suppr(item.id)}>
                   Supprimer
                 </button>
@@ -209,6 +268,48 @@ class Personnel extends Component {
           </Modal>
         </div>
         {this.tableau()}
+      </div>
+    );
+  }
+
+  render() {
+    return(
+      <div>
+        {this.formulaire()}
+        <div>
+      <Modal isOpen={this.state.modal2} toggle={this.toggle2}>
+        <ModalHeader toggle={this.toggle2}>Modifier un bâtiment</ModalHeader>
+        <ModalBody>
+        <Form>
+          <FormGroup>
+            <Label for="nomP">{"Nom de l'employé"}</Label>
+            <Input type="text" name="nom" id="nomB" placeholder="Nom" value={this.state.newItem1} onChange={e => this.updateInput("newItem1", e.target.value)} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="prenomP">{"Prénom de l'employé"}</Label>
+            <Input type="text" name="prenom" id="prenomP" placeholder="Prénom" value={this.state.newItem2} onChange={e => this.updateInput("newItem2", e.target.value)}/>
+          </FormGroup>
+          <FormGroup>
+            <Label for="ageP">{"Âge de l'employé"}</Label>
+            <Input type="number" name="age" id="ageP" placeholder="Âge" value={this.state.newItem3} onChange={e => this.updateInput("newItem3", e.target.value)}/>
+          </FormGroup>
+          <FormGroup>
+            <Label for="fonctionP">{"Fonction de l'employé"}</Label>
+            <Input type="text" name="fonction" id="fonctionP" placeholder="Fonction" value={this.state.newItem4} onChange={e => this.updateInput("newItem4", e.target.value)}/>
+          </FormGroup>
+          <FormGroup>
+            <Label for="salaireP">{"Salaire de l'employé (k€)"}</Label>
+            <Input type="number" name="date" id="date" placeholder="Salaire" value={this.state.newItem5} onChange={e => this.updateInput("newItem5", e.target.value)}/>
+          </FormGroup>
+        </Form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => this.updateItem()}>Modifier</Button>{' '}
+          <Button color="secondary" onClick={this.toggle2}>Annuler</Button>
+        </ModalFooter>
+      </Modal>
+        {this.tableau()}
+        </div>
       </div>
     );
   }
