@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, Table } from 'reactstrap';
+import moment from 'moment';
+import localization from "moment/locale/fr";
 
 class Attractions extends Component {
 
@@ -144,7 +146,7 @@ tableau() {
       return (
         <tr>
           <td scope="row">{item.value1}</td>
-          <td>{item.value2}</td>
+          <td>{moment(item.value2).locale("fr", localization).format("ll")}</td>
           <td>{item.value3}€</td>
           <td><Button color="danger" onClick={() => this.deleteItem(item.id)}>
             Supprimer

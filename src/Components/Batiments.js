@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, Table } from 'reactstrap';
+import moment from 'moment';
+import localization from "moment/locale/fr";
 
 class Batiments extends Component {
 
@@ -121,7 +123,7 @@ class Batiments extends Component {
                 <Input type="text" name="nom" id="nomB" placeholder="Nom du bâtiment" value={this.state.newItem1} onChange={e => this.updateInput("newItem1", e.target.value)} />
               </FormGroup>
               <FormGroup>
-                <Label for="date">{"Date d'installation"}</Label>
+                <Label for="date">Date d'installation</Label>
                 <Input type="date" name="date" id="date" placeholder="Date" value={this.state.newItem2} onChange={e => this.updateInput("newItem2", e.target.value)}/>
               </FormGroup>
             </Form>
@@ -140,7 +142,7 @@ tableau() {
       return (
         <tr>
           <td scope="row">{item.value1}</td>
-          <td>{item.value2}</td>
+          <td>{moment(item.value2).locale("fr", localization).format("ll")}</td>
           <td><button class="btn btn-danger" onClick={() => this.deleteItem(item.id)}>
             Supprimer
           </button></td>
@@ -153,7 +155,7 @@ tableau() {
         <thead>
           <tr>
             <th>Nom du bâtiment</th>
-            <th>{"Date d'installation"}</th>
+            <th>Date d'installation</th>
             <th></th>
           </tr>
         </thead>
