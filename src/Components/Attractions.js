@@ -9,7 +9,9 @@ class Attractions extends Component {
     super(props);
     this.state = {
       modal: false,
+      modal2: false,
       modalSuppr : false,
+      idupdate: "",
       id: ""
     };
     this.state = {
@@ -22,6 +24,7 @@ class Attractions extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggle2 = this.toggle2.bind(this);
     this.toggleSuppr = this.toggleSuppr.bind(this);
   }
 
@@ -68,6 +71,44 @@ class Attractions extends Component {
     this.toggle();
   }
 
+  updateItem() {
+    var buffer = 0;
+    const newValue = {
+      id: this.state.idupdate,
+      value1: this.state.newItem1.slice(),
+      value2: this.state.newItem2.slice(),
+      value3: this.state.newItem3.slice(),
+      value4: this.state.newItem4.slice(),
+      value5: this.state.newItem5.slice()
+    };
+    const listA = [...this.state.listA];
+
+    for (var i=0; i < listA.length; i++) {
+      if (listA[i].id == this.state.idupdate)
+      {
+        buffer = i;
+      }
+    }
+    listA[buffer] = newValue;
+
+    this.setState({
+      listA,
+      newItem1: "",
+      newItem2: "",
+      newItem3: "",
+      newItem4: "",
+      newItem5: ""
+    });
+    localStorage.setItem("listA", JSON.stringify(listA));
+    localStorage.setItem("newItem1", "");
+    localStorage.setItem("newItem2", "");
+    localStorage.setItem("newItem3", "");
+    localStorage.setItem("newItem4", "");
+    localStorage.setItem("newItem5", "");
+
+    this.toggle2();
+  }
+
   deleteItem(id) {
     // copie de la liste actuelle
     const listA = [...this.state.listA];
@@ -107,6 +148,12 @@ class Attractions extends Component {
   toggle() {
     this.setState({
       modal: !this.state.modal
+    });
+  }
+
+  toggle2() {
+    this.setState({
+      modal2: !this.state.modal2
     });
   }
 
@@ -151,10 +198,18 @@ class Attractions extends Component {
     );
   }
 
+
 suppr(id){
     this.toggleSuppr();
     this.setState({
       id: id
+    });
+}
+
+modif(id){
+    this.toggle2();
+    this.setState({
+      idupdate: id
     });
 }
 
@@ -165,6 +220,9 @@ tableau() {
           <td scope="row">{item.value1}</td>
           <td>{moment(item.value2).locale("fr", localization).format("ll")}</td>
           <td>{item.value3}€</td>
+          <td><Button color="primary" onClick={() => this.modif(item.id)}>
+            Modifier
+          </Button></td>
           <td><Button color="danger" onClick={() => this.suppr(item.id)}>
             Supprimer
           </Button></td>
@@ -206,6 +264,40 @@ tableau() {
           </Modal>
         </div>
         {this.tableau()}
+      </div>
+    );
+  };
+
+  render() {
+    return(
+      <div>
+        {this.formulaire()}
+        <div>
+      <Modal isOpen={this.state.modal2} toggle={this.toggle2}>
+        <ModalHeader toggle={this.toggle2}>Modifier une attraction</ModalHeader>
+        <ModalBody>
+          <Form>
+            <FormGroup>
+              <Label for="nomB">{"Nom de l'attraction"}</Label>
+              <Input type="text" name="nom" id="nomB" placeholder="Nom de l'attraction" value={this.state.newItem1} onChange={e => this.updateInput("newItem1", e.target.value)} />
+            </FormGroup>
+            <FormGroup>
+              <Label for="date">{"Date d'installation"}</Label>
+              <Input type="date" name="date" id="date" placeholder="Date" value={this.state.newItem2} onChange={e => this.updateInput("newItem2", e.target.value)}/>
+            </FormGroup>
+            <FormGroup>
+              <Label for="prix">{"Prix de l'entrée (€)"}</Label>
+              <Input type="number" name="prix" id="prix" placeholder="Prix d'entrée" value={this.state.newItem3} onChange={e => this.updateInput("newItem3", e.target.value)}/>
+            </FormGroup>
+          </Form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => this.updateItem()}>Modifier</Button>{' '}
+          <Button color="secondary" onClick={this.toggle2}>Annuler</Button>
+        </ModalFooter>
+      </Modal>
+        {this.tableau()}
+        </div>
       </div>
     );
   }
