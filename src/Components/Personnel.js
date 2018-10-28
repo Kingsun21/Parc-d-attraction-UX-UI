@@ -6,7 +6,9 @@ class Personnel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      modalSuppr : false,
+      id: ""
     };
     this.state = {
       newItem1: "",
@@ -18,6 +20,7 @@ class Personnel extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggleSuppr = this.toggleSuppr.bind(this);
   }
 
   updateInput(key, value) {
@@ -73,6 +76,7 @@ class Personnel extends Component {
 
     // update du cache
     localStorage.setItem("listP", JSON.stringify(updatedList));
+    this.toggleSuppr();
   }
 
   hydrateStateWithLocalStorage() {
@@ -101,6 +105,12 @@ class Personnel extends Component {
   toggle() {
     this.setState({
       modal: !this.state.modal
+    });
+  }
+
+  toggleSuppr() {
+    this.setState({
+      modalSuppr: !this.state.modalSuppr
     });
   }
 
@@ -147,40 +157,12 @@ class Personnel extends Component {
     );
   }
 
-tableau0() {
-    let tableau = this.state.listP.map(item => {
-      return (
-        <tr>
-          <td scope="row">{item.value1}</td>
-          <td>{item.value2}</td>
-          <td>{item.value3}</td>
-          <td>{item.value4}</td>
-          <td>{item.value5}€</td>
-          <td><button class="btn btn-danger" onClick={() => this.deleteItem(item.id)}>
-            Supprimer
-          </button></td>
-        </tr>
-      );
+  suppr(id){
+    this.toggleSuppr();
+    this.setState({
+      id: id
     });
-
-    return (
-      <Table striped>
-        <thead>
-          <tr>
-            <th>{"Nom de l'employé"}</th>
-            <th>{"Prénom de l'employé"}</th>
-            <th>{"Âge de l'employé"}</th>
-            <th>{"Fonction de l'employé"}</th>
-            <th>{"Salaire de l'employé"}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableau}
-        </tbody>
-      </Table>
-    );
-}
+  }
 
 
   tableau() {
@@ -192,7 +174,7 @@ tableau0() {
                 <CardTitle>{item.value1} {item.value2}</CardTitle>
                 <CardSubtitle>{item.value4} ({item.value5} €/mois)</CardSubtitle>
                 <CardText>{item.value2} {item.value1} a {item.value3} ans.</CardText>
-                <button class="btn btn-danger" onClick={() => this.deleteItem(item.id)}>
+                <button class="btn btn-danger" onClick={() => this.suppr(item.id)}>
                   Supprimer
                 </button>
               </CardBody>
@@ -211,6 +193,17 @@ tableau0() {
     return(
       <div>
         {this.formulaire()}
+        <div>
+          <Modal isOpen={this.state.modalSuppr} toggle={this.toggleSuppr} className={this.props.className}>
+            <ModalBody>
+              <p>Voulez-vous supprimer cet élément ?</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" onClick={() => this.deleteItem(this.state.id)}>Supprimer</Button>{' '}
+              <Button color="secondary" onClick={this.toggleSuppr}>Annuler</Button>
+            </ModalFooter>
+          </Modal>
+        </div>
         {this.tableau()}
       </div>
     );
