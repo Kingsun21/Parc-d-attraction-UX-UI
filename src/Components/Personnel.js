@@ -231,10 +231,10 @@ class Personnel extends Component {
                 <input type="file" class="form-control-file" id="importerImage1" />
                 <br/>
 
-                <button class="btn btn-primary" onClick={() => this.modif(item.id)}>
+                <button class="btn btn-primary" style={{margin: "0 5px"}} onClick={() => this.modif(item.id)}>
                   Modifier
                 </button>
-                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+
                 <button class="btn btn-danger" onClick={() => this.suppr(item.id)}>
                   Supprimer
                 </button>
