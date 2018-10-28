@@ -311,7 +311,6 @@ jumbotron(){
   );
 }
 
-
   render() {
     return(
       <div>
@@ -327,19 +326,6 @@ jumbotron(){
             </ModalFooter>
           </Modal>
         </div>
-        {this.jumbotron()}
-        <br/>
-        <h2>Historique des maintenances :</h2>
-        <br />
-        {this.tableau()}
-      </div>
-    );
-  }
-
-  render() {
-    return(
-      <div>
-        {this.formulaire()}
         <div>
       <Modal isOpen={this.state.modal2} toggle={this.toggle2}>
         <ModalHeader toggle={this.toggle2}>Modifier une maintenance</ModalHeader>
