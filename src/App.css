@@ -45,3 +45,8 @@ img {
 #oui {
   color: blue;
 }
+
+#graph {
+  width: 900px !important;
+  height: 450px !important;
+}
