@@ -14,6 +14,7 @@ class Personnel extends Component {
       newItem3: "",
       newItem4: "",
       newItem5: "",
+      newItem6: "",
       listP: []
     };
 
@@ -33,7 +34,8 @@ class Personnel extends Component {
       value2: this.state.newItem2.slice(),
       value3: this.state.newItem3.slice(),
       value4: this.state.newItem4.slice(),
-      value5: this.state.newItem5.slice()
+      value5: this.state.newItem5.slice(),
+      value5: this.state.newItem6.slice()
     };
 
     // copie de la liste actuelle
@@ -49,7 +51,8 @@ class Personnel extends Component {
       newItem2: "",
       newItem3: "",
       newItem4: "",
-      newItem5: ""
+      newItem5: "",
+      newItem6: ""
     });
 
     // update du cache et convertion en strin JSON pour le cache
@@ -59,6 +62,7 @@ class Personnel extends Component {
     localStorage.setItem("newItem3", "");
     localStorage.setItem("newItem4", "");
     localStorage.setItem("newItem5", "");
+    localStorage.setItem("newItem6", "");
 
     this.toggle();
   }
@@ -182,7 +186,6 @@ tableau0() {
     );
 }
 
-
   tableau() {
     let tableau = this.state.listP.map(item => {
       return (
@@ -192,6 +195,9 @@ tableau0() {
                 <CardTitle>{item.value1} {item.value2}</CardTitle>
                 <CardSubtitle>{item.value4} ({item.value5} €/mois)</CardSubtitle>
                 <CardText>{item.value2} {item.value1} a {item.value3} ans.</CardText>
+                <label for="importerImage">Importer une image</label>
+                <input type="file" class="form-control-file" id="importerImage1"/>
+                <br/>
                 <button class="btn btn-danger" onClick={() => this.deleteItem(item.id)}>
                   Supprimer
                 </button>
@@ -203,6 +209,8 @@ tableau0() {
     return (
       <CardColumns>{tableau}</CardColumns>
     );
+
+
   }
 
 
