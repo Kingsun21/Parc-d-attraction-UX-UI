@@ -22,6 +22,7 @@ class Attractions extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggleSuppr = this.toggleSuppr.bind(this);
   }
 
   updateInput(key, value) {
@@ -123,7 +124,7 @@ class Attractions extends Component {
         <br/>
         <br/>
         <br/>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Ajouter une attraction</ModalHeader>
           <ModalBody>
             <Form>
@@ -194,7 +195,7 @@ tableau() {
       <div>
         {this.formulaire()}
         <div>
-          <Modal isOpen={this.state.modalSuppr} toggle={this.toggleSuppr} className={this.props.className}>
+          <Modal isOpen={this.state.modalSuppr} toggle={this.toggleSuppr}>
             <ModalBody>
               <p>Voulez-vous supprimer cet élément ?</p>
             </ModalBody>

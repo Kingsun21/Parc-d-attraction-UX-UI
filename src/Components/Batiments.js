@@ -22,6 +22,7 @@ class Batiments extends Component {
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggleSuppr = this.toggleSuppr.bind(this);
   }
 
   updateInput(key, value) {
@@ -132,7 +133,7 @@ class Batiments extends Component {
                 <Input type="text" name="nom" id="nomB" placeholder="Nom du bâtiment" value={this.state.newItem1} onChange={e => this.updateInput("newItem1", e.target.value)} />
               </FormGroup>
               <FormGroup>
-                <Label for="date">Date d'installation</Label>
+                <Label for="date">{"Date d'installation"}</Label>
                 <Input type="date" name="date" id="date" placeholder="Date" value={this.state.newItem2} onChange={e => this.updateInput("newItem2", e.target.value)}/>
               </FormGroup>
             </Form>
@@ -171,7 +172,7 @@ tableau() {
         <thead>
           <tr>
             <th>Nom du bâtiment</th>
-            <th>Date d'installation</th>
+            <th>{"Date d'installation"}</th>
             <th></th>
           </tr>
         </thead>
